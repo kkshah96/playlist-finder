@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('form[name=testForm]').submit(function () {
+            
+            $.ajax({
+                
+                url: "https://playlist-scraper.herokuapp.com/results?list=" + $('textarea').val(),
+                //url: "https://jsonplaceholder.typicode.com/todos/1",
+                type: "GET",
+                beforeSend: function(){
+                    $('#loading-message').show();
+                },
+                complete: function(){
+                    $('#loading-message').hide();
+                },
+                success: function(success){
+                    
+                    $('.list-group').empty();
+                    for(i in success){
+                        var html = $("<a href=" + success[i].url +" class='list-group-item list-group-item-action'>" + success[i].title + "</a>")
+                        $('.list-group').append(escapeHtml(html));
+                    }
+                },
+                error: function(error){
+                    console.log(`Error ${error}`);
+                }
+            });
+            return false;
+            //})
+        });
+
+    });
+
+    function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
+    }   
+</script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Test</h2>
+  <p>Test description:</p>
+  <div class="col-sm-4" style="padding-left: 0">
+    <form name='testForm'>
+        <div class="form-group">
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+  </div>
+  <div class="col-sm-4">
+    <div id="loading-message" style="display: none;">Loading...</div>
+    <div class="list-group"></div>
+  </div>
+
+
+</div>
+
+</body>
+</html>
+
