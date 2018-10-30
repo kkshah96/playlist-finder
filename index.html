@@ -102,22 +102,29 @@
 -->
 <div class="container" style="margin-top: 1em;">
     <div class="row">
-       <div class="col-md-6" style="padding: 0.5em; width: 25rem;">
+            <div class="card" >
+                    <div class="card-body">
+                            <h1>Spotify Playlist Finder</h2>
+                    </div>
+                </div>
+       <div class="col-md-6" style="padding: 0em;">
           <div class="card">
              <div class="card-body">
-                <h2 class="card-title">Playlist Finder</h5>
+                <h4 class="card-title">Search</h5>
                 <h6 class="card-subtitle mb-10 text-muted">Enter search terms (song and/or artist)</h6>
-                <p class="text-muted">Example: lady gaga,imagine,john lennon,i want you back</p>
                 <form name='input-form'>
                    <div class="form-group">
                       <textarea class="form-control" rows="5" id="input"></textarea>
                    </div>
-                   <button type="submit" class="btn btn-primary">Submit</button>
+                   <div class="checkbox">
+                    <label><input type="checkbox" value="">Rank results by number of hits</label>
+                  </div>                   
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
              </div>
           </div>
        </div>
-       <div class="col-md-6" style="padding: 0.5em;">
+       <div class="col-md-6" style="padding: 0em;">
         <div class="card" >
             <div class="card-body">
                     <h2 id="results-message" style="display: none;">Playlists: </h2>
