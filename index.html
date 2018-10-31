@@ -19,87 +19,10 @@
 </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-        
-        $('form[name=input-form]').submit(function () {
-            $.ajax({
-                
-                url: "https://playlist-scraper.herokuapp.com/results?list=" + parseList($('textarea').val()),
-                //url: "https://jsonplaceholder.typicode.com/todos/1",
-                type: "GET",
-                beforeSend: function(){
-                    $('#loading-message').show();
-                    $('#results-message').hide();
-
-                },
-                complete: function(){
-                    $('#loading-message').hide();
-                },
-                success: function(success){
-                    $('#results-message').show();
-                    
-                    $('.list-group').empty();
-                    for(i in success){
-                        //var html = "<a href=" + success[i].url +" class='list-group-item list-group-item-action'>" + success[i].title + "</a>"
-                        escapedUrl = escapeHtml(success[i].url)
-                        escapedTitle = escapeHtml(success[i].title)
-                        var item = "<a href=" + escapedUrl +" target='_blank' class='list-group-item list-group-item-action'>" + escapedTitle + "</a>"
-                       //var item = "<p>hello</p>"
-                        $('.list-group').append($(item));
-                    }
-                },
-                error: function(error){
-                    console.log(`Error ${error}`);
-                }
-            });
-            return false;
-            //})
-        });
-
-    });
-
-    function parseList(str){
-      trimmed = str.replace(/\s*,\s*/g, ",");
-      parsed = trimmed.replace(/ /g, '+');
-      return parsed;
-    }
-
-    function escapeHtml(str) {
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
-}
-
-</script>
+  <script type="text/javascript" src="finder.js"></script>
 </head>
 <body>
 
-<!--
-<div class="container">
-
-<div class="col-sm-4">
-   
-  <h2>Test</h2>
-  <p>Test description:</p>
-  </div>
-
-  <div class="col-sm-4" style="padding-left: 0">
-    <form name='testForm'>
-        <div class="form-group">
-        <textarea class="form-control" rows="5" id="comment"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-
-    </form>
-  </div>
-  <div class="col-sm-4">
-    
-  </div>
-
-</div>
--->
 <div class="container" style="margin-top: 1em;">
     <div class="row">
             <div class="card" >
@@ -108,10 +31,22 @@
                     </div>
                 </div>
        <div class="col-md-6" style="padding-left: 0em;">
+        <div class="card" >
+            <div class="card-body">
+                    <h4 class="card-title">Usage</h4>
+                    <ul>
+                        <li>Enter search terms (song and/or artist) separated by commas</li>
+                        <li>Check "Rank Results" to get a list of results ordered by number of search terms found,
+                        and number of hits for each search term (note: this could take longer)</li>
+                    </ul>
+                    <p></p>
+                    <p class="card-subtitle text-muted"><i>Example: lady gaga,somewhere over the rainbow,jackson 5</i></p>
+
+            </div>
+        </div>
           <div class="card">
              <div class="card-body">
-                <h4 class="card-title">Search</h5>
-                <h6 class="card-subtitle mb-10 text-muted">Enter search terms (song and/or artist)</h6>
+                <h4 class="card-title">Search</h4>
                 <form name='input-form'>
                    <div class="form-group">
                       <textarea class="form-control" rows="5" id="input"></textarea>
@@ -129,7 +64,15 @@
             <div class="card-body">
                     <h2 id="results-message" style="display: none;">Playlists: </h2>
                     <h2 id="loading-message" style="display: none;">Loading...</h2>
-                    <div class="list-group"></div>
+                    <h4 id="example-message">Examples: </h4>
+                    <div class="list-group">
+                        <a href=google.com class='list-group-item list-group-item-action'>Cool Playlist</a>
+                        <a href=google.com class='list-group-item list-group-item-action'>Cool Playlist 2</a>
+                        <a href=google.com class='list-group-item list-group-item-action'>Cool Playlist 3</a>
+                        <a href=google.com class='list-group-item list-group-item-action'>Cool Playlist 4</a>
+                        <a href=google.com class='list-group-item list-group-item-action'>Cool Playlist 5</a>
+
+                    </div>
             </div>
         </div>
        </div>
