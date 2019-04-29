@@ -4,7 +4,6 @@ $(document).ready(function () {
 		$.ajax({
 
 			url: "https://playlist-scraper.herokuapp.com/results?list=" + parseList($('textarea').val()),
-			//url: "https://jsonplaceholder.typicode.com/todos/1",
 			type: "GET",
 			beforeSend: function () {
 				$('#loading-message').show();
@@ -20,11 +19,9 @@ $(document).ready(function () {
 
 				$('.list-group').empty();
 				for (i in success) {
-					//var html = "<a href=" + success[i].url +" class='list-group-item list-group-item-action'>" + success[i].title + "</a>"
 					escapedUrl = escapeHtml(success[i].url)
 					escapedTitle = escapeHtml(success[i].title)
 					var item = "<a href=" + escapedUrl + " target='_blank' class='list-group-item list-group-item-action'>" + escapedTitle + "</a>"
-					//var item = "<p>hello</p>"
 					$('.list-group').append($(item));
 				}
 			},
@@ -33,7 +30,6 @@ $(document).ready(function () {
 			}
 		});
 		return false;
-		//})
 	});
 
 });
